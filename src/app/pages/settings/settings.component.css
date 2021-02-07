@@ -1,0 +1,9 @@
+app-settings {
+  width: 100%;
+  margin-left: auto;
+  margin-right:auto;
+}
+
+.form-field {
+  display: block;
+}
