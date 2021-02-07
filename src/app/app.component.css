@@ -31,5 +31,5 @@
 /* Main content */
 .main {
   width: 80%;
-  margin: 60px auto; /* Add a top margin to avoid content overlay */
+  margin: 60px auto;
 }

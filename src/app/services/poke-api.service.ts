@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {map, take} from 'rxjs/operators';
 
@@ -24,6 +24,15 @@ export class PokeApiService {
         params
       },
     );
+  }
+
+  public getPokemonByName(name: string): Observable<any> {
+    if (!!name) {
+      return this.http.get(
+        this.POKE_API_URL + 'pokemon/' + name,
+      );
+    }
+    return of(undefined);
   }
 
   // Found endpoint here: https://github.com/PokeAPI/pokeapi/issues/143

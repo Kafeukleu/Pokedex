@@ -31,14 +31,6 @@ export class PokemonListDataSource extends DataSource<PokemonListItem> {
    */
   connect(): Observable<PokemonListItem[]> {
     return this.pokemonsSubject.asObservable();
-    // Combine everything that affects the rendered data into one update
-    // stream for the data-table to consume.
-    // const dataMutations = [
-    //   this.paginator.page,
-    // ];
-    //
-    // return merge(...dataMutations).pipe(switchMap(() =>
-    //   this.getPagedData(this.paginator.pageIndex * this.paginator.pageSize, this.paginator.pageSize)));
   }
 
   /**
@@ -49,9 +41,6 @@ export class PokemonListDataSource extends DataSource<PokemonListItem> {
     this.pokemonsSubject.complete();
   }
 
-  // public getPagedData(startIndex = 0, pageSize = 20): Observable<PokemonListItem[]> {
-  //   return this.pokeApiService.listPokemons(pageSize, startIndex);
-  // }
 
   public loadPokemons(pageIndex = 0, pageSize = 20): void {
     this.pokeApiService.listPokemons(pageSize, pageIndex * pageSize).subscribe(

@@ -3,14 +3,14 @@
     <!-- Name Column -->
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-      <td mat-cell *matCellDef="let row">{{row.name}}</td>
+      <td mat-cell *matCellDef="let row" (click)="selectPokemon(row)">{{row.name}}</td>
     </ng-container>
 
     <!-- Actions Column -->
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
       <td mat-cell *matCellDef="let row">
-        <ng-container *ngIf="!isFavorite(row); else favorite">
+        <ng-container *ngIf="!(isFavorite(row) | async); else favorite">
           <button mat-button (click)="addToFavorites(row)">Add to favorites</button>
         </ng-container>
         <ng-template #favorite>
@@ -20,7 +20,7 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="addToFavorites(row)"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
   <mat-paginator #paginator

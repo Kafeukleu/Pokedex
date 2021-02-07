@@ -1,0 +1,19 @@
+<ng-container *ngIf="(selectedPokemonDetails$ | async) as pokemon; else noPokemon">
+  <div class="card">
+    <img src="{{pokemon.sprites.front_default}}"/>
+    <p>Name: {{pokemon.name}}</p>
+    <p>Id: {{pokemon.id}}</p>
+    <p>Height: {{pokemon.height}}</p>
+    <p>Weight: {{pokemon.weight}}</p>
+    <h4>ABILITIES: </h4>
+    <ul>
+      <li *ngFor="let ability of pokemon.abilities">
+        <p>Ability name : {{ability.ability.name}}</p>
+      </li>
+    </ul>
+    <p *ngIf="isSelectedPokemonFavorite$ | async" class="favorite">❤❤❤ This pokemon is one of your favorites ! ❤❤❤</p>
+  </div>
+</ng-container>
+<ng-template #noPokemon>
+  <p>No pokemon selected</p>
+</ng-template>

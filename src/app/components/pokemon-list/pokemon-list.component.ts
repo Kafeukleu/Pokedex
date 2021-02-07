@@ -7,6 +7,8 @@ import {FavoritePokemonService} from '../../services/favorite-pokemon.service';
 import {PokeApiService} from '../../services/poke-api.service';
 import {tap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
+import {PokemonModel} from '../../models/pokemon.model';
+import {PokemonSelectionService} from '../../services/pokemon-selection.service';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -24,7 +26,8 @@ export class PokemonListComponent implements AfterViewInit, OnInit {
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['name', 'actions'];
 
-  constructor(private favoritePokemonService: FavoritePokemonService, private pokeApiService: PokeApiService) {}
+  constructor(private favoritePokemonService: FavoritePokemonService, private pokeApiService: PokeApiService,
+              private pokemonSelectionService: PokemonSelectionService) {}
 
   ngOnInit(): void {
     this.paginationSize = +localStorage.getItem('pokemonPageSizeSetting');
@@ -44,21 +47,25 @@ export class PokemonListComponent implements AfterViewInit, OnInit {
       .subscribe();
   }
 
-  public isFavorite(row: any): boolean {
-    return false;
+  public isFavorite(row: PokemonModel): Observable<boolean> {
+    return this.favoritePokemonService.isFavoritePokemon(row.name);
   }
 
-  public addToFavorites(row: any): void {
-    this.favoritePokemonService.addFavoritePokemonName(row.id);
+  public addToFavorites(row: PokemonModel): void {
+    this.favoritePokemonService.addFavoritePokemonName(row.name);
   }
 
-  public removeFromFavorites(row: any): void {
-    // TODO
+  public removeFromFavorites(row: PokemonModel): void {
+    this.favoritePokemonService.removeFavoritePokemonName(row.name);
   }
 
   private loadPokemonsPage(): void {
     this.dataSource.loadPokemons(
       this.paginator.pageIndex,
       this.paginator.pageSize);
+  }
+
+  public selectPokemon(row: PokemonModel): void {
+    this.pokemonSelectionService.setSelectedPokemon(row);
   }
 }

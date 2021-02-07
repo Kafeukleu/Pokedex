@@ -14,6 +14,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import {MatButtonModule} from '@angular/material/button';
+import { PokemonDetailsComponent } from './components/pokemon-details/pokemon-details.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {MatButtonModule} from '@angular/material/button';
     PokemonComponent,
     FavoriteCounterComponent,
     PokemonCounterComponent,
-    PokemonListComponent
+    PokemonListComponent,
+    PokemonDetailsComponent
   ],
   imports: [
     BrowserModule,
